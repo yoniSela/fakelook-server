@@ -35,6 +35,13 @@ namespace fakeLook_starter.Controllers
             return new JsonResult(_repository.GetAll());
         }
 
+        [HttpPost]
+        [Route("SaveUser")]
+        public void Add(User item)
+        {
+            _repository.Add(item);
+        }
+
        
     }
 }
