@@ -58,10 +58,10 @@ namespace fakeLook_dal.Data
                 var address = "some adress";
                 var password = "12345".GetHashCode().ToString();
                 var users = new User[amount];
-                //for (int i = 0; i < amount; i++)
-                //{
-                //    users[i] = new User() { Id = i + 1, Address = address, Name = name + (i + 1).ToString(), Password = password };
-                //}
+                for (int i = 0; i < amount; i++)
+                {
+                    users[i] = new User() { Id = i + 1, Address = address, Name = name + (i + 1).ToString(), Password = password };
+                }
                 SeedDb(users);
             }
             void AddPosts()
