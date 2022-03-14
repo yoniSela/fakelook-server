@@ -1,16 +1,17 @@
 ﻿using fakeLook_models.Models;
 using fakeLook_starter.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Web.Http.Description;
 
 namespace fakeLook_starter.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
-       
+
         private readonly IUserRepository _repository;
 
         public UsersController(IUserRepository repository)
@@ -42,6 +43,7 @@ namespace fakeLook_starter.Controllers
             _repository.Add(item);
         }
 
-       
+
     }
+}
 }

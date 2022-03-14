@@ -1,5 +1,6 @@
 ﻿using fakeLook_models.Models;
 using fakeLook_starter.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ using System.Web.Http.Description;
 
 namespace fakeLook_starter.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
-    public class PostsController : Controller
+    public class PostsController : ControllerBase
     {
         private readonly IPostRepository _repository;
 
@@ -53,7 +54,10 @@ namespace fakeLook_starter.Controllers
         {
             return new JsonResult(_repository.Edit(post));
         }
-       
+
 
     }
 }
+
+
+
