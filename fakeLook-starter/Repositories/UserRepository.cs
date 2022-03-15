@@ -23,6 +23,14 @@ namespace fakeLook_starter.Repositories
             return res.Entity;
         }
 
+        public User Post(User item)
+        {
+            item.Id = int.Parse(Guid.NewGuid().ToString());
+            item.Password = item.Password.GetHashCode().ToString();
+            _context.Users.Add(item);
+            return item;
+        }
+
         public async Task<User> Edit(User item)
         {
             var res = _context.Users.Update(item);
@@ -44,5 +52,12 @@ namespace fakeLook_starter.Repositories
         {
             return _context.Users.Where(predicate).ToList();
         }
+
+        public User FindItem(User item)
+        {
+            item.Password = item.Password.GetHashCode().ToString();
+            return _context.Users.Where(user => user.UserName == item.UserName && user.Password == item.Password).SingleOrDefault();
+        }
+
     }
 }
