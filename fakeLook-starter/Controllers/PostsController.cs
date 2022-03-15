@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http.Description;
 
 namespace fakeLook_starter.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("posts")]
     [ApiController]
     public class PostsController : ControllerBase
     {
@@ -33,7 +34,8 @@ namespace fakeLook_starter.Controllers
         [ResponseType(typeof(ICollection<Post>))]
         public JsonResult All()
         {
-            return new JsonResult(_repository.GetAll());
+            var posts = _repository.GetAll();
+            return new JsonResult(posts);
         }
         [HttpGet]
         [Route("ByPredicate")]
@@ -44,15 +46,15 @@ namespace fakeLook_starter.Controllers
         }
         [HttpPost]
         [Route("Add")]
-        public JsonResult Add(Post post)
+        public async Task<JsonResult> Add(Post post)
         {
-            return new JsonResult(_repository.Add(post));
+            return new JsonResult(await _repository.Add(post));
         }
         [HttpPut]
         [Route("Edit")]
-        public JsonResult Edit(Post post)
+        public async Task<JsonResult> Edit(Post post)
         {
-            return new JsonResult(_repository.Edit(post));
+            return new JsonResult(await _repository.Edit(post));
         }
 
 
