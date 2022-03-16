@@ -67,6 +67,13 @@ namespace fakeLook_starter.Controllers
             return Ok(new { token });
         }
 
+        [HttpGet]
+        [Route("GetToken")]
+        public string SignUp(string token)
+        {
+            return _tokenService.GetPayload(token);
+        }
+
 
     }
 }
