@@ -56,6 +56,8 @@ namespace fakeLook_starter.Controllers
             var token = _tokenService.CreateToken(dbUser);
             return Ok(new { token });
         }
+
+
         [HttpPost]
         [Route("SignUp")]
         public IActionResult SignUp([FromBody] User user)

@@ -18,6 +18,7 @@ namespace fakeLook_starter.Repositories
 
         public async Task<User> Add(User item)
         {
+            item.Password = item.Password.GetHashCode().ToString();
             var res = _context.Users.Add(item);
             await _context.SaveChangesAsync();
             return res.Entity;
@@ -25,7 +26,7 @@ namespace fakeLook_starter.Repositories
 
         public User Post(User item)
         {
-            item.Id = int.Parse(Guid.NewGuid().ToString());
+            //item.Id = int.Parse(Guid.NewGuid().ToString());
             item.Password = item.Password.GetHashCode().ToString();
             _context.Users.Add(item);
             return item;
