@@ -52,13 +52,13 @@ namespace fakeLook_starter
               });
             #endregion
 
-            services.AddTransient<ITokenService, TokenService>();
-            services.AddScoped<IUserRepository, UserRepository>();
-
+            
             services.AddControllers();
             #region Setting repository and services interfaces
             services.AddTransient<IPostRepository, PostRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<UserRepository, UserRepository>();
+            
             #endregion
             #region Setting DB configuration
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
