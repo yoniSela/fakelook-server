@@ -1,4 +1,5 @@
 ﻿using fakeLook_models.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace fakeLook_starter.Interfaces
     }
     public interface IUserRepository : IRepository<User>
     {
+        public User Post(User item);
+        public User FindItem(User item);
+
+
 
     }
     public interface IPostRepository : IRepository<Post>
