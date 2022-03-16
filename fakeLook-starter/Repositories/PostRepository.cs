@@ -25,9 +25,17 @@ namespace fakeLook_starter.Repositories
 
         public async Task<Post> Edit(Post item)
         {
-            var res = _context.Posts.Update(item);
+            var temp = _context.Posts.FirstOrDefault(u => u.Id == item.Id);
+            if (temp == null)
+            {
+                return null;//TODO
+            }
+            temp.Description = item.Description;
+            temp.ImageSorce = item.ImageSorce;
+            _context.Posts.Update(temp);
+            //_context.Entry<Post>(temp).CurrentValues.SetValues(item);
             await _context.SaveChangesAsync();
-            return res.Entity;
+            return item;
         }
 
         public ICollection<Post> GetAll()
