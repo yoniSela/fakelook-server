@@ -27,4 +27,9 @@ namespace fakeLook_starter.Interfaces
     {
 
     }
+    public interface ILikeRepository : IRepository<Like>
+    {
+        public ICollection<Like> GetByPostId(int id);
+
+    }
 }
