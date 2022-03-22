@@ -4,6 +4,8 @@ using fakeLook_starter.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace fakeLook_starter.Repositories
@@ -18,16 +20,34 @@ namespace fakeLook_starter.Repositories
 
         public async Task<User> Add(User item)
         {
-            item.Password = item.Password.GetHashCode().ToString();
+            //item.Password = item.Password.GetHashCode().ToString();
+            item.Password = sha256_hash(item.Password);
             var res = _context.Users.Add(item);
             await _context.SaveChangesAsync();
             return res.Entity;
         }
 
+        private string sha256_hash(string password)
+        {
+            StringBuilder Sb = new StringBuilder();
+
+            using (SHA256 hash = SHA256Managed.Create())
+            {
+                Encoding enc = Encoding.UTF8;
+                Byte[] result = hash.ComputeHash(enc.GetBytes(password));
+
+                foreach (Byte b in result)
+                    Sb.Append(b.ToString("x2"));
+            }
+
+            return Sb.ToString();
+            
+        }
+
         public User Post(User item)
         {
             //item.Id = int.Parse(Guid.NewGuid().ToString());
-            item.Password = item.Password.GetHashCode().ToString();
+            item.Password = sha256_hash(item.Password);
             _context.Users.Add(item);
             return item;
         }
@@ -56,9 +76,10 @@ namespace fakeLook_starter.Repositories
 
         public User FindItem(User item)
         {
-            item.Password = item.Password.GetHashCode().ToString();
+            item.Password = sha256_hash(item.Password);
             return _context.Users.Where(user => user.UserName == item.UserName && user.Password == item.Password).SingleOrDefault();
         }
 
     }
 }
+
