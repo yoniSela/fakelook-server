@@ -8,12 +8,12 @@ using System.Web.Http.Description;
 
 namespace fakeLook_starter.Controllers
 {
-    [Route("likes")]
+    [Route("comments")]
     [ApiController]
-    public class LikesController : ControllerBase
+    public class CommentController : ControllerBase
     {
-        private readonly ILikeRepository _repository;
-        public LikesController(ILikeRepository repository)
+        private readonly ICommentRepository _repository;
+        public CommentController(ICommentRepository repository)
         {
             this._repository = repository;
         }
@@ -25,25 +25,17 @@ namespace fakeLook_starter.Controllers
         }
         [HttpGet]
         [Route("All")]
-        [ResponseType(typeof(ICollection<Like>))]
+        [ResponseType(typeof(ICollection<Comment>))]
         public JsonResult All()
         {
-            var likes = _repository.GetAll();
-            return new JsonResult(likes);
+            var comments = _repository.GetAll();
+            return new JsonResult(comments);
         }
         [HttpPost]
         [Route("Add")]
-        public async Task<JsonResult> Add(Like like)
+        public async Task<JsonResult> Add(Comment comment)
         {
-            return new JsonResult(await _repository.Add(like));
+            return new JsonResult(await _repository.Add(comment));
         }
-        [HttpPut]
-        [Route("Edit")]
-        public async Task<JsonResult> Edit(Like like)
-        {
-            return new JsonResult(await _repository.Edit(like));
-        }
-
-
     }
 }
