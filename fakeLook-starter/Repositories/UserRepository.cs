@@ -55,7 +55,7 @@ namespace fakeLook_starter.Repositories
         public async Task<User> Edit(User item)
         {
             var res = GetByName(item.UserName);
-            res.Password = item.Password.GetHashCode().ToString();
+            res.Password = sha256_hash(item.Password);
             await _context.SaveChangesAsync();
             return res;
         }
