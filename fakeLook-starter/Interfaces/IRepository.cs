@@ -32,4 +32,9 @@ namespace fakeLook_starter.Interfaces
         public ICollection<Like> GetByPostId(int id);
 
     }
+    public interface ICommentRepository : IRepository<Comment>
+    {
+        public ICollection<Comment> GetByPostId(int id);
+
+    }
 }
