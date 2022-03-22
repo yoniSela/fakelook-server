@@ -4,6 +4,7 @@ using fakeLook_starter.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http.Description;
 
 namespace fakeLook_starter.Controllers
@@ -30,6 +31,14 @@ namespace fakeLook_starter.Controllers
         public JsonResult ById(int id)
         {
             return new JsonResult(_repository.GetById(id));
+        }
+
+        [HttpGet]
+        [Route("ByUsername")]
+        [ResponseType(typeof(User))]
+        public JsonResult ByName(string name)
+        {
+            return new JsonResult(_repository.GetByName(name));
         }
 
         [HttpGet]
@@ -73,6 +82,21 @@ namespace fakeLook_starter.Controllers
         {
             return _tokenService.GetPayload(token);
         }
+
+        [HttpPut]
+        [Route("Edit")]
+        public async Task<JsonResult> Edit(User user)
+        {
+            return new JsonResult(await _repository.Edit(user));
+        }
+
+        //[HttpPut]
+        //[Route("ChangePassword")]
+        //public async Task<JsonResult> ChangePassword(string userName, string password)
+        //{
+        //    return new JsonResult(await _repository.ChangePassword(userName, password));
+        //}
+
 
 
     }
