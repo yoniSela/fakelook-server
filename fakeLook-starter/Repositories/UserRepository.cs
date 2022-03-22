@@ -34,9 +34,10 @@ namespace fakeLook_starter.Repositories
 
         public async Task<User> Edit(User item)
         {
-            var res = _context.Users.Update(item);
+            var res = GetByName(item.UserName);
+            res.Password = item.Password.GetHashCode().ToString();
             await _context.SaveChangesAsync();
-            return res.Entity;
+            return res;
         }
 
         public ICollection<User> GetAll()
@@ -49,6 +50,12 @@ namespace fakeLook_starter.Repositories
             return _context.Users.SingleOrDefault(p => p.Id == id);
         }
 
+
+        public User GetByName(string name)
+        {
+            return _context.Users.SingleOrDefault(p => p.UserName == name);
+        }
+
         public ICollection<User> GetByPredicate(Func<User, bool> predicate)
         {
             return _context.Users.Where(predicate).ToList();
@@ -59,6 +66,7 @@ namespace fakeLook_starter.Repositories
             item.Password = item.Password.GetHashCode().ToString();
             return _context.Users.Where(user => user.UserName == item.UserName && user.Password == item.Password).SingleOrDefault();
         }
+
 
     }
 }
