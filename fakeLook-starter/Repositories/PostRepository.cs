@@ -42,7 +42,8 @@ namespace fakeLook_starter.Repositories
         public ICollection<Post> GetAll()
         {
             //return _context.Posts.Include(p=> p.Likes).ToList();
-            return _context.Posts.ToList();
+            return _context.Posts.OrderByDescending(u => u.Date).ToList();
+            //return _context.Posts.ToList();
 
         }
 
