@@ -1,6 +1,7 @@
 ﻿using fakeLook_dal.Data;
 using fakeLook_models.Models;
 using fakeLook_starter.Interfaces;
+using fakeLook_starter.models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,28 @@ namespace fakeLook_starter.Repositories
             //return _context.Posts.ToList();
 
         }
+        public ICollection<Post> GetByQuery(Query query)
+        {
+            //get after min date
+            //get after max date
+            //get posted by
+                //get user by username
+                //get id from user
+                //get posts by userId
+            // get tagged in 
+                //get user by username
+                //get id from user
+                //get posts by tagged list
+            //get tags
+            return _context.Posts.OrderByDescending(u => u.Date).ToList();
+        }
+
+        private ICollection<Post> FilterByDate(DateTime min, DateTime max)
+        {
+            return _context.Posts.Where(p => p.Date > min && p.Date < max).ToList();
+        }
+
+
 
         public Post GetById(int id)
         {
@@ -56,5 +79,7 @@ namespace fakeLook_starter.Repositories
         {
             return _context.Posts.Where(predicate).ToList();
         }
+
+
     }
 }

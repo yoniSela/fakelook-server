@@ -1,5 +1,6 @@
 ﻿using fakeLook_models.Models;
 using fakeLook_starter.Interfaces;
+using fakeLook_starter.models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -37,6 +38,16 @@ namespace fakeLook_starter.Controllers
             var posts = _repository.GetAll();
             return new JsonResult(posts);
         }
+
+        [HttpGet]
+        [Route("ByQuery")]
+        [ResponseType(typeof(ICollection<Post>))]
+        public JsonResult ByQuery(Query query)
+        {
+            var posts = _repository.GetByQuery(query);
+            return new JsonResult(posts);
+        }
+
         [HttpGet]
         [Route("ByPredicate")]
         public JsonResult GetByPredicate(Func<Post, bool> predicate)
