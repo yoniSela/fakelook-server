@@ -38,4 +38,13 @@ namespace fakeLook_starter.Interfaces
         public ICollection<Comment> GetByPostId(int id);
 
     }
+
+    public interface ITagRepository : IRepository<Tag>
+    {
+        public ICollection<Tag> GetByPost(int id);
+
+        public ICollection<Tag> GetByComment(int id);
+
+
+    }
 }

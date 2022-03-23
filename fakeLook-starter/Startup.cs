@@ -57,7 +57,7 @@ namespace fakeLook_starter
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<ILikeRepository, LikeRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
-
+            services.AddTransient<ITagRepository, TagRepository>();
             services.AddScoped<UserRepository, UserRepository>();
             services.AddTransient<ITokenService, TokenService>();
 
