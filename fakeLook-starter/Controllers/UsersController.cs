@@ -89,6 +89,13 @@ namespace fakeLook_starter.Controllers
         {
             return new JsonResult(await _repository.Edit(user));
         }
+        [HttpGet]
+        [Route("GetDIct")]
+        public async Task<JsonResult> GetDIct()
+        {
+            return new JsonResult(_repository.GetUserNames());
+        }
+
 
         //[HttpPut]
         //[Route("ChangePassword")]
