@@ -21,6 +21,11 @@ namespace fakeLook_starter.Repositories
         public async Task<Post> Add(Post item)
         {
             var res = _context.Posts.Add(item);
+            foreach(Tag tag in item.Tags)
+            {
+                TagRepository tagRepository = new(_context);
+                await tagRepository.Add(tag);
+            }
             await _context.SaveChangesAsync();
             return res.Entity;
         }
@@ -31,6 +36,11 @@ namespace fakeLook_starter.Repositories
             if (temp == null)
             {
                 return null;//TODO
+            }
+            foreach (Tag tag in item.Tags)
+            {
+                TagRepository tagRepository = new(_context);
+                await tagRepository.Add(tag);
             }
             temp.Description = item.Description;
             temp.ImageSorce = item.ImageSorce;
