@@ -6,9 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace fakeLook_starter.Services
 {
@@ -40,8 +43,16 @@ namespace fakeLook_starter.Services
 
         public string GetPayload(string token)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            return tokenHandler.ReadJwtToken(token).Claims.Where(claim => claim.Type == ClaimTypes.Name).Single().Value;
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                return tokenHandler.ReadJwtToken(token).Claims.Where(claim => claim.Type == ClaimTypes.Name).Single().Value;
+            }
+            catch (Exception ex)
+            {
+                var notFoundResponse = new HttpResponseMessage(HttpStatusCode.NotFound);
+                throw new HttpResponseException(notFoundResponse);
+            }
         }
 
     }
