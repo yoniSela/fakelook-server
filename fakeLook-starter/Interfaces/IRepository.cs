@@ -26,7 +26,6 @@ namespace fakeLook_starter.Interfaces
     }
     public interface IPostRepository : IRepository<Post>
     {
-        public ICollection<Post> GetByQuery(Query query);
     }
     public interface ILikeRepository : IRepository<Like>
     {

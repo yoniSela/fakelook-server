@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http.Description;
 
@@ -39,13 +40,22 @@ namespace fakeLook_starter.Controllers
             return new JsonResult(posts);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("ByQuery")]
         [ResponseType(typeof(ICollection<Post>))]
         public JsonResult ByQuery(Query query)
         {
-            var posts = _repository.GetByQuery(query);
-            return new JsonResult(posts);
+            var res = _repository.GetByPredicate((post) =>
+            {
+                bool date = query.CheckDates(post.Date, query.MaxDate, query.MinDate);
+                bool user = query.PostBy(post.UserId, query.PublisherId);
+                bool tags = query.conatinTags(post.Tags, query.FilterTags);
+                //bool Usertags = query.conatinTags(post.UserTaggedPost, query.FilterUserTags);
+                return date && user && tags;
+            });
+            Console.WriteLine(res);
+            //var posts = _repository.GetByQuery(query);
+            return new JsonResult(res.ToList());
         }
 
         [HttpGet]

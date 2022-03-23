@@ -47,21 +47,6 @@ namespace fakeLook_starter.Repositories
             //return _context.Posts.ToList();
 
         }
-        public ICollection<Post> GetByQuery(Query query)
-        {
-            //get after min date
-            //get after max date
-            //get posted by
-                //get user by username
-                //get id from user
-                //get posts by userId
-            // get tagged in 
-                //get user by username
-                //get id from user
-                //get posts by tagged list
-            //get tags
-            return _context.Posts.OrderByDescending(u => u.Date).ToList();
-        }
 
         private ICollection<Post> FilterByDate(DateTime min, DateTime max)
         {
@@ -77,7 +62,7 @@ namespace fakeLook_starter.Repositories
 
         public ICollection<Post> GetByPredicate(Func<Post,bool> predicate)
         {
-            return _context.Posts.Where(predicate).ToList();
+            return _context.Posts.Include(p=>p.Tags).Where(predicate).ToList();
         }
 
 
