@@ -20,37 +20,10 @@ namespace fakeLook_starter.Repositories
             var temp = _context.Tags.FirstOrDefault(u => u.Content.Equals(item.Content));
             if (temp != null)
             {
-                if (item.Posts != null)
-                {
-                    var newPost = _context.Posts.FirstOrDefault(p => p.Id == item.Posts.FirstOrDefault().Id);
-                    var posts = temp.Posts;
-                    if (posts == null)
-                    {
-                        posts = new List<Post>();
-                    }
-                    if((!posts.Contains(newPost)))
-                    {
-                        posts.Add(newPost);
-                        temp.Posts = posts;
-                    }
-                }
-                if (item.Comments != null)
-                {
-                    var newComment = _context.Comments.FirstOrDefault(p => p.Id == item.Comments.FirstOrDefault().Id);
-                    var comments = temp.Comments;
-                    if (comments == null)
-                    {
-                        comments = new List<Comment>();
-                    }
-                    if (!comments.Contains(newComment))
-                    {
-                        comments.Add(newComment);
-                        temp.Comments = comments;
-                    }
-                }
-                await _context.SaveChangesAsync();
                 return item;
             } else {
+                item.Posts = null;
+                item.Comments = null;
                 var res = _context.Tags.Add(item);
                 await _context.SaveChangesAsync();
                 return res.Entity;
